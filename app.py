@@ -35,8 +35,9 @@ def home():
         img = Image.open(io.BytesIO(file.read()))
         img_array = preprocess_image(img)
 
-        prediction = model.predict(img_array)
-        result = "🐱 고양이" if prediction < 0.5 else "🐶 강아지"
+        prediction = model.predict(img_array, verbose=0)
+        predicted_value = float(prediction[0][0])
+        result = "🐱 고양이" if predicted_value < 0.5 else "🐶 강아지"
 
         return render_template("index.html", result=result)
 
